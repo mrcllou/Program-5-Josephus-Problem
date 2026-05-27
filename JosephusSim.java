@@ -37,11 +37,21 @@ public class JosephusSim {
          
       } catch(FileNotFoundException e) {
          System.out.println("Something went wrong with " + fileName);
+         return;
       }
    }
    
    // optional helper method for constructing the circle
    private void add(String val) {
+      if (circle == null){
+         circle = new PersonNode(val);
+      }else {
+         PersonNode current = circle;
+         while (current.next != null) {
+            current = current.next;
+         }
+         current.next = new PersonNode(val);
+      }
    }
    
    public void eliminate() {
@@ -68,10 +78,21 @@ public class JosephusSim {
    
    public String toString() {
       // if there's only one person left, print them as the last survivor
+      if(isOver()) {
+         return circle.name + " is the last survivor!";
+      }
       
       // print the remaining survivors (watch out for infinite loop since list is circular)
-
-      return "";
+      String result = "Remaining survivors: ";
+      PersonNode current = circle;
+      for(int i = 0; i < size; i++){
+         if(i > 0) {
+            result += " , ";
+            result += (i + 1) + "-" + current.name;
+            current = current.next;
+         }
+      }  
+      return result;
    }
 
 }
