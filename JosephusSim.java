@@ -1,3 +1,4 @@
+//Modify 
 import java.util.*;
 import java.io.*;
 
@@ -11,15 +12,20 @@ public class JosephusSim {
       try {
          // load names from the file in order, generating a singly linked list of PersonNodes
          Scanner file = new Scanner(new File("people.txt"));
-         while (file.hasNextLine()){
-            String name = file.nextLine().trim();
-            if(!name.isEmpty()){
-               add(name);
-               size++;
-            }
+         while(file.hasNextLine()) {
+            String name = file.nextLine().trim();  //to remove extra spaces (from the last assigment) 
+               if(!name.isEmpty()) {
+                  add(name);
+                  size++;
+             }
          }
-         
+             
          // make the ring circular by attaching last node's next to front
+         PersonNode last = circle; 
+         while(last.next != null) {
+            last = last.next; 
+         }
+         last.next = circle; 
          
          // remember the last node as the one in front of the next to get eliminated
          
