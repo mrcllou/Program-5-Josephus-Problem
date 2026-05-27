@@ -1,3 +1,4 @@
+//Modify 
 import java.util.*;
 import java.io.*;
 
@@ -11,30 +12,31 @@ public class JosephusSim {
       try {
          // load names from the file in order, generating a singly linked list of PersonNodes
          Scanner file = new Scanner(new File("people.txt"));
-         while (file.hasNextLine()){
-            String name = file.nextLine().trim();
-            if(!name.isEmpty()){
-               add(name);
-               size++;
-            }
+         while(file.hasNextLine()) {
+            String name = file.nextLine().trim();  //to remove extra spaces (from the last assigment) 
+               if(!name.isEmpty()) {
+                  add(name);
+                  size++;
+             }
          }
-         
+             
          // make the ring circular by attaching last node's next to front
-         PersonNode last = circle;
+         PersonNode last = circle; 
          while(last.next != null) {
-            last = last.next;
+            last = last.next; 
          }
-         last.next = circle;
+         last.next = circle; 
+         
          // remember the last node as the one in front of the next to get eliminated
-         track = last;
+         track = last; 
          
          // generate, print, and save the random elimination count
-         Random rand = new Random();
+         Random rand = new Random(); 
          int maxRange = Math.max(1, size/2);
          eliminationCount = rand.nextInt(maxRange) + 1;
          
-         System.out.println("=== Elimination count is " + eliminationCount + " ===");
-         
+         System.out.println("=== Elimination count is " + eliminationCount + " ==="); 
+
       } catch(FileNotFoundException e) {
          System.out.println("Something went wrong with " + fileName);
       }
@@ -46,10 +48,20 @@ public class JosephusSim {
    
    public void eliminate() {
       // count to the elimination count
-      
+      for(int i = 0; i < eliminationCount; i++){
+         track = track.next; 
+         
+      }
+       
       // print who will be eliminated
-      
+      PersonNode victim = track.next; 
+      System.out.println(track.next + "eliminated !");       
       // eliminate the person and update "front" of the circle and size
+      
+      track.next = victim.next; 
+      size--; 
+      
+      circle = track.next; 
 
    }
    
